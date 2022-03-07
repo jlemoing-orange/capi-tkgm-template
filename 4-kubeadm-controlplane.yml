@@ -1,0 +1,49 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha4
+kind: KubeadmControlPlane
+metadata:
+  name: #@ data.values.cluster.name + "-masters"
+  namespace: #@ data.values.cluster.namespace
+spec:
+  kubeadmConfigSpec:
+    clusterConfiguration:
+      apiServer:
+        certSANs:
+        - localhost
+        - 127.0.0.1
+      controllerManager:
+        extraArgs:
+          enable-hostpath-provisioner: "true"
+      dns:
+        imageRepository: projects.registry.vmware.com/tkg
+        imageTag: #@ data.values.controlplane.dnsVersion
+      etcd:
+        local:
+          imageRepository: projects.registry.vmware.com/tkg
+          imageTag: #@ data.values.controlplane.etcdVersion
+      imageRepository: projects.registry.vmware.com/tkg
+    users:
+    - name: root
+      sshAuthorizedKeys:
+      - #@ data.values.cluster.sshKey
+    initConfiguration:
+      nodeRegistration:
+        criSocket: /run/containerd/containerd.sock
+        kubeletExtraArgs:
+          eviction-hard: nodefs.available<0%,nodefs.inodesFree<0%,imagefs.available<0%
+          cloud-provider: external
+    joinConfiguration:
+      nodeRegistration:
+        criSocket: /run/containerd/containerd.sock
+        kubeletExtraArgs:
+          eviction-hard: nodefs.available<0%,nodefs.inodesFree<0%,imagefs.available<0%
+          cloud-provider: external
+  machineTemplate:
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+      kind: VCDMachineTemplate
+      name: #@ data.values.cluster.name + "-masters"
+      namespace: #@ data.values.cluster.namespace
+  replicas:  #@ data.values.controlplane.count
+  version: #@ data.values.cluster.version

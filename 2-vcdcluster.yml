@@ -1,0 +1,15 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+kind: VCDCluster
+metadata:
+  name: #@ data.values.cluster.name
+  namespace: #@ data.values.cluster.namespace
+spec:
+  site: #@ data.values.vcd.url
+  org: #@ data.values.vcd.org
+  ovdc: #@ data.values.vcd.ovdc
+  ovdcNetwork: #@ data.values.vcd.ovdcNetwork
+  userContext:
+    refreshToken: #@ data.values.vcd.refreshToken
+

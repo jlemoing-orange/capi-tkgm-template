@@ -1,0 +1,26 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: cluster.x-k8s.io/v1alpha4
+kind: Cluster
+metadata:
+  name: #@ data.values.cluster.name
+  namespace: #@ data.values.cluster.namespace
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 100.96.0.0/11
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+      - 100.64.0.0/13
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha4
+    kind: KubeadmControlPlane
+    name: #@ data.values.cluster.name + "-masters" 
+    namespace: #@ data.values.cluster.namespace
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+    kind: VCDCluster
+    name: #@ data.values.cluster.name
+    namespace: #@ data.values.cluster.namespace 

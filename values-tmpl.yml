@@ -1,0 +1,23 @@
+#@data/values
+---
+cluster:
+  name: #! Cluster name to create 
+  namespace: #! namespace where the cluster objects should be created in management cluster 
+  sshKey: "" #! sshKey used to connect to nodes, should be 2048bits & started with ssh-rsa !! DO NOT FORGET TO ENCAPSULATE YOUR KEY BETWEEN TWO "" 
+  template: ubuntu-2004-kube-v1.21.2+vmware.1-tkg.1-7832907791984498322 #! sample template name to use for nodes
+  version: v1.21.2+vmware.1 # Kubernetes version to use - must be correlated to the template choosen
+vcd:
+  url: #! url of the vCloud Director console : WITH NO / AT THE END OF THE URL, example https://my.vcdurl.com 
+  org: #! VCD Organization name where to create the cluster 
+  ovdc: #! Organization Virtual Datacenter Name (OVDC) where to create the cluster 
+  ovdcNetwork: #! Organization Network Name where to connect the nodes 
+  refreshToken: "" #! refreshToken from VCD for the service account used to make action on VCD API 
+  catalog: "csecatalog" #! VCD Catalog name from where the vm templates will be taken
+controlplane:
+  count: 1 #! number of master nodes to deploy
+  computePolicy: "" #! compute policy to use for master node - default will be used if empty
+  dnsVersion: v1.8.0_vmware.5 # version of the coredns to use - https://github.com/vmware/cluster-api-provider-cloud-director/blob/0.5.0/docs/WORKLOAD_CLUSTER.md#script-to-get-kubernetes-etcd-coredns-versions-from-tkg-ova
+  etcdVersion: v3.4.13_vmware.15  # version of the etcd to use - https://github.com/vmware/cluster-api-provider-cloud-director/blob/0.5.0/docs/WORKLOAD_CLUSTER.md#script-to-get-kubernetes-etcd-coredns-versions-from-tkg-ova
+workers:
+  count : 3 #! number of worker nodes to deploy
+  computePolicy: "" #! compute policy to use for master node - default will be used if empty
