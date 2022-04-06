@@ -12,4 +12,14 @@ spec:
   ovdcNetwork: #@ data.values.vcd.ovdcNetwork
   userContext:
     refreshToken: #@ data.values.vcd.refreshToken
+  defaultStorageClassOptions:
+    vcdStorageProfileName: #@ data.values.storage.vdcStoragePolicy
+    k8sStorageClassName: #@ data.values.storage.k8sClassName
+    #@ if data.values.storage.reclaimPolicy == "delete":
+    useDeleteReclaimPolicy: true 
+    #@ else:
+    useDeleteReclaimPolicy: false
+    #@ end
+
+    fileSystem: ext4
 

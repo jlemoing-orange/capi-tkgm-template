@@ -13,6 +13,10 @@ vcd:
   ovdcNetwork: #! Organization Network Name where to connect the nodes 
   refreshToken: "" #! refreshToken from VCD for the service account used to make action on VCD API 
   catalog: "csecatalog" #! VCD Catalog name from where the vm templates will be taken
+storage:
+  vdcStoragePolicy: silver #! Name of the storage policy to use by default in your VDC
+  k8sClassName: silver #! name of the storage class to create by default in the Kubernetes cluster
+  reclaimPolicy: delete #! reclaimPolicy to use : delete or retain
 controlplane:
   count: 1 #! number of master nodes to deploy
   computePolicy: "" #! compute policy to use for master node - default will be used if empty
