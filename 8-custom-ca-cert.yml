@@ -7,6 +7,8 @@
 #! Trust your custom CA certificates on all Control Plane nodes.
 #@overlay/match by=overlay.subset({"kind":"KubeadmControlPlane"})
 ---
+#@ files = data.list()
+#@ for/end file in [ f for f in files if f.endswith("tkg-custom-ca.pem") ]:
 spec:
   kubeadmConfigSpec:
     #@overlay/match missing_ok=True
@@ -28,6 +30,8 @@ spec:
 #! Trust your custom CA certificates on all worker nodes.
 #@overlay/match by=overlay.subset({"kind":"KubeadmConfigTemplate"}), expects="1+"
 ---
+#@ files = data.list()
+#@ for/end file in [ f for f in files if f.endswith("tkg-custom-ca.pem") ]:
 spec:
   template:
     spec:
