@@ -10,6 +10,4 @@ spec:
     spec:
       catalog:  #@ data.values.vcd.catalog
       template: #@ data.values.cluster.template
-      sizingPolicy: #@ data.values.workers.sizingPolicy
-      placementPolicy: #@ data.values.workers.placementPolicy
-      storageProfile: #@ data.values.workers.storageProfile
+      computePolicy: #@ data.values.workers.computePolicy
