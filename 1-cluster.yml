@@ -1,12 +1,10 @@
 #@ load("@ytt:data", "data")
 ---
-apiVersion: cluster.x-k8s.io/v1beta1
+apiVersion: cluster.x-k8s.io/v1alpha4
 kind: Cluster
 metadata:
   name: #@ data.values.cluster.name
   namespace: #@ data.values.cluster.namespace
-  labels:
-    cni: antrea
 spec:
   clusterNetwork:
     pods:
@@ -19,7 +17,7 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha4
     kind: KubeadmControlPlane
-    name: #@ data.values.cluster.name + "-masters" 
+    name: #@ data.values.cluster.name + "-control-plane" 
     namespace: #@ data.values.cluster.namespace
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4

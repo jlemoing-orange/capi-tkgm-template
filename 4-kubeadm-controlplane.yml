@@ -1,9 +1,9 @@
 #@ load("@ytt:data", "data")
 ---
-apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha4
 kind: KubeadmControlPlane
 metadata:
-  name: #@ data.values.cluster.name + "-masters"
+  name: #@ data.values.cluster.name + "-control-plane"
   namespace: #@ data.values.cluster.namespace
 spec:
   kubeadmConfigSpec:
@@ -41,9 +41,9 @@ spec:
           cloud-provider: external
   machineTemplate:
     infrastructureRef:
-      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
       kind: VCDMachineTemplate
-      name: #@ data.values.cluster.name + "-masters"
+      name: #@ data.values.cluster.name + "-control-plane"
       namespace: #@ data.values.cluster.namespace
   replicas:  #@ data.values.controlplane.count
   version: #@ data.values.cluster.version

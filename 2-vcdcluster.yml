@@ -1,6 +1,6 @@
 #@ load("@ytt:data", "data")
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
 kind: VCDCluster
 metadata:
   name: #@ data.values.cluster.name
@@ -12,14 +12,4 @@ spec:
   ovdcNetwork: #@ data.values.vcd.ovdcNetwork
   userContext:
     refreshToken: #@ data.values.vcd.refreshToken
-  defaultStorageClassOptions:
-    vcdStorageProfileName: #@ data.values.storage.vdcStoragePolicy
-    k8sStorageClassName: #@ data.values.storage.k8sClassName
-    #@ if data.values.storage.reclaimPolicy == "delete":
-    useDeleteReclaimPolicy: true 
-    #@ else:
-    useDeleteReclaimPolicy: false
-    #@ end
-
-    fileSystem: ext4
 

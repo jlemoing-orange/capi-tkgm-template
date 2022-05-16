@@ -1,16 +1,14 @@
 #@ load("@ytt:data", "data")
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
 kind: VCDMachineTemplate
 metadata:
-  name: #@ data.values.cluster.name + "-masters"
+  name: #@ data.values.cluster.name + "-control-plane"
   namespace: #@ data.values.cluster.namespace
 spec:
   template:
     spec:
       catalog: #@ data.values.vcd.catalog
       template: #@ data.values.cluster.template
-      sizingPolicy: #@ data.values.controlplane.sizingPolicy
-      placementPolicy: #@ data.values.controlplane.placementPolicy
-      storageProfile: #@ data.values.controlplane.storageProfile
+      computePolicy: #@ data.values.controlplane.computePolicy
 

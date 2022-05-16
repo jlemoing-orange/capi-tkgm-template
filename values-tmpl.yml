@@ -13,19 +13,11 @@ vcd:
   ovdcNetwork: #! Organization Network Name where to connect the nodes 
   refreshToken: "" #! refreshToken from VCD for the service account used to make action on VCD API 
   catalog: "csecatalog" #! VCD Catalog name from where the vm templates will be taken
-storage:
-  vdcStoragePolicy: silver #! Name of the storage policy to use by default in your VDC for K8S StorageClass
-  k8sClassName: silver #! name of the storage class to create by default in the Kubernetes cluster
-  reclaimPolicy: delete #! reclaimPolicy to use : delete or retain
 controlplane:
   count: 1 #! number of master nodes to deploy
-  sizingPolicy: "" #! compute policy to use for master node - default will be used if empty
-  placementPolicy: "" #! placement policy to use for master node - default will be used if empty
-  storageProfile: "" #! storage policy to use for master node - default will be used if empty
+  computePolicy: "" #! compute policy to use for master node - default will be used if empty
   dnsVersion: v1.8.0_vmware.5 #! version of the coredns to use - https://github.com/vmware/cluster-api-provider-cloud-director/blob/0.5.0/docs/WORKLOAD_CLUSTER.md#script-to-get-kubernetes-etcd-coredns-versions-from-tkg-ova
   etcdVersion: v3.4.13_vmware.15  #! version of the etcd to use - https://github.com/vmware/cluster-api-provider-cloud-director/blob/0.5.0/docs/WORKLOAD_CLUSTER.md#script-to-get-kubernetes-etcd-coredns-versions-from-tkg-ova
 workers:
   count : 3 #! number of worker nodes to deploy
-  sizingPolicy: "" #! compute policy to use for worker nodes - default will be used if empty
-  placementPolicy: "" #! placement policy to use for worker nodes - default will be used if empty
-  storageProfile: "" #! storage policy to use for worker nodes - default will be used if empty
+  computePolicy: "" #! compute policy to use for worker nodes - default will be used if empty
